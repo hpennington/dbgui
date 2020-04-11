@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/query', 'QueryController@query');
+Route::get('/databases', 'QueryController@databases');
+Route::get('/tables', 'QueryController@tables');
