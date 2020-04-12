@@ -24,6 +24,7 @@ export default function NavTreeView(props) {
 
   const handleSelect = (event, nodeIds) => {
     setSelected(nodeIds);
+    props.onSetSelected(nodeIds)
   };
 
   return (
@@ -43,7 +44,7 @@ export default function NavTreeView(props) {
             db.tables.map((table, tb_key) =>
               <TreeItem
                 key={tb_key}
-                nodeId={db_key.toString() + tb_key.toString()}
+                nodeId={db_key.toString() + '-' + tb_key.toString()}
                 label={table}>
               </TreeItem>
             )

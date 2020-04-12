@@ -31,6 +31,7 @@ function App() {
             menuClicked={e => setOpen(!open)}
             isOpen={false}
           />
+          <h3>Selected DB/Table</h3>
         </div>
       </div>
     </div>

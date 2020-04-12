@@ -10,7 +10,7 @@ export const databases = (state = [], action) => {
       const selectedDatabase = state.find(db => db.name === database)
       selectedDatabase.tables = action.tables
       return [
-        ...state,
+        ...state.filter(db => db.name !== database),
         selectedDatabase
       ]
     default:

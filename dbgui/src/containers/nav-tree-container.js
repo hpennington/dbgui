@@ -37,17 +37,26 @@ class NavTreeContainer extends React.Component {
     for (const database of databases) {
       this.fetchTable(database)
     }
-}
+  }
+
+  onSetSelected(nodeIds) {
+    console.log(nodeIds)
+
+  }
 
   render() {
     return (
-      <NavTreeView databases={this.props.databases} />
+      <NavTreeView
+        onSetSelected={this.onSetSelected.bind(this)}
+        databases={this.props.databases}
+      />
     )
   }
 }
 
 const mapStateToProps = state => {
   const databases = state.databases
+        .sort((a, b) => a.name > b.name ? 1 : -1)
   return {
     databases
   }
