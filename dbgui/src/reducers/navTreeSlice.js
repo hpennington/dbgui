@@ -6,8 +6,11 @@ export const navTreeSlice = createSlice({
     databases: [],
   },
   reducers: {
+    setDatabases: (names) => {
+      return names.map(name => ({name: name, tables: []}))
+    },
   },
 });
 
-//export const { u } = navTreeSlice.actions;
+export const { setDatabases } = navTreeSlice.actions;
 export default navTreeSlice.reducer;
