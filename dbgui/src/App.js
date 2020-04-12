@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import HamburgerMenu from 'react-hamburger-menu'
+import NavTreeContainer from './containers/nav-tree-container'
 import './App.css';
 
 function App() {
+  const [open, setOpen] = useState(true)
+
+  const leftPaneStyle = {
+    width: open === true ? '400px' : 0
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id="split-pane-left" style={leftPaneStyle}>
+        { open === true ?
+        <div id="tree-view-container">
+          <h3>Databases</h3>
+          <NavTreeContainer />
+        </div>
+        : ''
+        }
+      </div>
+      <div id="split-pane-right">
+        <div id="hamburger-menu-container">
+          <HamburgerMenu
+            width={18}
+            height={15}
+            strokeWidth={3}
+            color="gray"
+            menuClicked={e => setOpen(!open)}
+            isOpen={false}
+          />
+        </div>
+      </div>
     </div>
   );
 }

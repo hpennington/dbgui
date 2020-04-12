@@ -24,6 +24,9 @@ services:
       - "80:3000"
     stdin_open: true
     volumes:
+      - type: "bind"
+        source: ./dbgui
+        target: /home/ubuntu/dbgui
       - /home/ubuntu/dbgui/node_modules/
   mysql:
     image: mysql:5.7

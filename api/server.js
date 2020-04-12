@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const databases = require('./routes/databases')
 const tables = require('./routes/tables')
 const query = require('./routes/query')
@@ -6,6 +7,7 @@ const query = require('./routes/query')
 const app = express()
 
 app.use(express.json())
+app.use(cors)
 
 app.use(function (req, res, next) {
   if (req.body.api_key === process.env.API_KEY) {
