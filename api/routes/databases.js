@@ -3,6 +3,6 @@ const databases = require('../controllers/databases').databases
 
 const router = express.Router()
 
-router.get('/', databases)
+router.post('/', databases)
 
 module.exports = router

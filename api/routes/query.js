@@ -3,6 +3,6 @@ const query = require('../controllers/query').query
 
 const router = express.Router()
 
-router.get('/', query)
+router.post('/', query)
 
 module.exports = router
