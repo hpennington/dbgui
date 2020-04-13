@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import HamburgerMenu from 'react-hamburger-menu'
 import NavTreeContainer from './containers/nav-tree-container'
-import Spreadsheet from './components/spreadsheet'
+import SpreadsheetContainer from './containers/spreadsheet-container'
 import './App.css';
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
           />
         </div>
         <h3 id="label">{title}</h3>
-        <Spreadsheet />
+        <SpreadsheetContainer />
       </div>
     </div>
   );
