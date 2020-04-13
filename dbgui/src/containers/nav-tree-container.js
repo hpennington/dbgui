@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import NavTreeView from '../components/nav-tree-view'
-import { setDatabases, setTables } from '../actions/databases'
+import { setDatabases, setTables, setDatabase, setTable, } from '../actions/databases'
 
 class NavTreeContainer extends React.Component {
   componentDidMount() {
@@ -39,9 +39,22 @@ class NavTreeContainer extends React.Component {
     }
   }
 
-  onSetSelected(nodeIds) {
-    console.log(nodeIds)
-
+  onSetSelected(nodeId) {
+    if (nodeId.includes('-') === true) {
+      const index0 = parseInt(nodeId.split('-')[0])
+      const index1 = parseInt(nodeId.split('-')[1])
+      const database = this.props.databases[index0]
+      const name = database.name
+      const table = database.tables[index1]
+      this.props.onSetSelected(table)
+      this.props.dispatch(setDatabase(name))
+      this.props.dispatch(setTable(table))
+    } else {
+      const database = this.props.databases[nodeId].name
+      this.props.onSetSelected(database)
+      this.props.dispatch(setDatabase(database))
+      this.props.dispatch(setTable(null))
+    }
   }
 
   render() {
@@ -56,7 +69,8 @@ class NavTreeContainer extends React.Component {
 
 const mapStateToProps = state => {
   const databases = state.databases
-        .sort((a, b) => a.name > b.name ? 1 : -1)
+    .sort((a, b) => a.name > b.name ? 1 : -1)
+
   return {
     databases
   }

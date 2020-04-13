@@ -1,4 +1,6 @@
-import { SET_DATABASES, SET_TABLES } from '../actions/databases'
+import {
+  SET_DATABASES, SET_TABLES,
+} from '../actions/databases'
 
 export const databases = (state = [], action) => {
   switch (action.type) {

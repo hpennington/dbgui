@@ -1,5 +1,5 @@
 .App {
-  widtH: 100%;
+  width: 100%;
   height: 100%;
   display: flex;
   font-family: arial;
@@ -9,11 +9,13 @@
   border-right: 1px solid #ccc;
   height: 100%;
   overflow: auto;
+
 }
 
 #split-pane-right {
   height: 100%;
   width: 100%;
+  overflow: scroll;
 }
 
 #hamburger-menu-container {
@@ -22,4 +24,8 @@
 
 #tree-view-container {
   margin: 15px;
+}
+
+#label {
+  margin: 10px;
 }
