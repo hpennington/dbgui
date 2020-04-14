@@ -7,14 +7,14 @@ table {
 
 th, td {
   text-align: left;
-  padding: 16px;
+  padding: 10px;
 }
 
 tr:nth-child(even) {
-  background-color: rgb(181, 191, 222);
+  background-color: rgb(181, 165, 222);
 }
 
 .spreadsheet {
   margin: 10px;
-  overflow: scroll;
+  overflow: auto;
 }
