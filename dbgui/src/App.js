@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import HamburgerMenu from 'react-hamburger-menu'
 import NavTreeContainer from './features/navtree/nav-tree-container'
+import SpreadsheetContainer from './features/spreadsheet/spreadsheet-container'
 import './App.css';
 
 function App(props) {
@@ -34,6 +35,7 @@ function App(props) {
           />
         </div>
         <h3 id="label">{title}</h3>
+        <SpreadsheetContainer />
       </div>
     </div>
   );

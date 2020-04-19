@@ -72,7 +72,7 @@ class NavTreeContainer extends React.Component {
 
     } else {
       const database = this.props.databases[nodeId]
-      this.props.dispatch(setColumns({columns: 'Tables'}))
+      this.props.dispatch(setColumns({columns: ['Tables']}))
       this.props.dispatch(
         setRows({rows: this.props.tables[database].map(table => [table])})
       )
