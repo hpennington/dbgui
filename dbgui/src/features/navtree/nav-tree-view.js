@@ -39,9 +39,9 @@ export default function NavTreeView(props) {
     >
     {
       props.databases.map((db, db_key) =>
-        <TreeItem key={db_key} nodeId={db_key.toString()} label={db.name}>
+        <TreeItem key={db_key} nodeId={db_key.toString()} label={db}>
           {
-            db.tables.map((table, tb_key) =>
+            props.tables[db].map((table, tb_key) =>
               <TreeItem
                 key={tb_key}
                 nodeId={db_key.toString() + '-' + tb_key.toString()}

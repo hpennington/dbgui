@@ -1,17 +1,9 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import thunk from "redux-thunk"
-import { createStore, applyMiddleware, compose } from "redux"
-import reducer from './reducers'
-import './index.css'
-import App from './App'
-
-const middleware = [thunk]
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export const store = createStore(reducer, composeEnhancers(
-  applyMiddleware(...middleware)
-))
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import store from './app/store';
+import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,5 +13,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-module.hot.accept()
