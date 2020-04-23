@@ -18,6 +18,20 @@
   overflow: auto;
 }
 
+#split-pane-right > div {
+  display: flex;
+}
+
+#sql-form {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.form-control {
+  width: 50vw;
+}
+
 #hamburger-menu-container {
   margin: 15px;
 }

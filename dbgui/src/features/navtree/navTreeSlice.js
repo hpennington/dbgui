@@ -4,9 +4,13 @@ export const navTreeSlice = createSlice({
   name: 'navTree',
   initialState: {
     databases: [],
+    selectedDatabase: null,
     tables: new Object(),
   },
   reducers: {
+    setSelectedDatabase: (state, action) => {
+      state.selectedDatabase = action.payload.selected
+    },
     setDatabases: (state, action) => {
       const { databases } = action.payload
       state.databases = databases
@@ -22,6 +26,6 @@ export const navTreeSlice = createSlice({
   },
 })
 
-export const { setDatabases, setTable } = navTreeSlice.actions
+export const { setDatabases, setSelectedDatabase, setTable } = navTreeSlice.actions
 
 export default navTreeSlice.reducer
