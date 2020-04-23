@@ -80,11 +80,12 @@ class NavTreeContainer extends React.Component {
     }
   }
 
-   render() {
+  render() {
+    console.log(this.props.databases)
      return (
        <NavTreeView
          onSetSelected={this.onSetSelected.bind(this)}
-         databases={this.props.databases}
+         databases={this.props.databases.slice().sort()}
          tables={this.props.tables}
        />
      )

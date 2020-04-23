@@ -24,4 +24,5 @@ exports.table = function (req, res) {
     })
     .then(result => res.send(result))
     .catch(err => console.log(err))
+    .then(() => knex.destroy())
 }

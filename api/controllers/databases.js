@@ -13,4 +13,5 @@ exports.databases = function(req, res) {
     .then(queryResult => JSON.parse(JSON.stringify(queryResult)))
     .then(queryResult => queryResult[0].map(row => row['Database']))
     .then(queryResult => res.send(JSON.stringify(queryResult)))
+    .then(() => knex.destroy())
 }
