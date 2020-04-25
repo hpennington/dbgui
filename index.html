@@ -1,5 +1,106 @@
 <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <style>
+    body {
+      background: rgb(52, 69, 84);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    a {
+      color: #55A;
+    }
+
+
+    h1 {
+      font-size: 3em;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: white;
+      text-align: center;
+    }
+
+    .app-img {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      width: 80%;
+      box-shadow: 0px 0px 20px black;
+    }
+
+    .tool-img {
+      margin: 20px;
+      max-height: 120px;
+      object-fit: scale-down;
+    }
+
+    .tool-img-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tool-img-block {
+      display: flex;
+    }
+
+    .github-block {
+      display: flex;
+      align-items: center;
+    }
+
+    .get-started-block {
+      margin-top: 60px;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 768px) {
+      .app-img {
+        width: 100%;
+      }
+
+      .tool-img {
+        max-height: 50px;
+      }
+
+      .get-started-block {
+        margin-top: 20px;
+      }
+    }
+  </style>
   <body>
     <h1>DBGUI</h1>
+    <h3>Open source database management tool for relational databases</h3>
+    <img class="app-img" src="assets/dbgui.png"/>
+    <h2>Built on</h2>
+    <div class="tool-img-block">
+      <div class="tool-img-container">
+        <img class="tool-img" src="assets/react.png" alt="React"/>
+        <h3>React<h3>
+      </div>
+      <div class="tool-img-container">
+        <img class="tool-img" src="assets/redux.png" alt="Redux"/>
+        <h3>Redux</h3>
+      </div>
+      <div class="tool-img-container">
+        <img class="tool-img" src="assets/node.png" alt="NodeJS"/>
+        <h3>NodeJS</h3>
+      </div>
+    </div>
+    <div>
+    <div class="get-started-block">
+      <h2>Get started</h2>
+      <div class="github-block">
+        <img class="tool-img" src="assets/github.png" alt="Github"/>
+        <div>
+          <h3>Github</h3>
+          <a href="https://github.com/hpennington/dbgui">github.com/hpennignton/dbgui</a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
