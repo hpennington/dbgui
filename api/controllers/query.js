@@ -3,7 +3,8 @@ import Query from '../services/query'
 exports.query = function (req, res) {
   const db_client = process.env.DB_CLIENT
   const database = req.query.database
-  const query = req.query.query
+  const query = req.body.query
+  console.log(query)
   const host = process.env.DB_HOST
   const user = process.env.DB_USER
   const password = process.env.DB_PASSWORD

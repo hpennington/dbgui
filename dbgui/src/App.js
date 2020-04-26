@@ -20,12 +20,15 @@ function App(props) {
     const query = document.getElementById('formBasicSQL').value
     const database = props.selectedDatabase
 
-    fetch('http://localhost:3000/query?query=' + query + '&database=' + database, {
+    fetch('http://localhost:3000/query?database=' + database, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({'api_key': process.env.REACT_APP_API_KEY}),
+      body: JSON.stringify({
+        'api_key': process.env.REACT_APP_API_KEY,
+        'query': query
+      }),
     }).then(res => res.json())
       .then(res => {
         console.log(res)
