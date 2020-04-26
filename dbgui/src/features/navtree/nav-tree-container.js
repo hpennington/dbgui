@@ -84,11 +84,10 @@ class NavTreeContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.databases)
      return (
        <NavTreeView
          onSetSelected={this.onSetSelected.bind(this)}
-         databases={this.props.databases.slice().sort()}
+         databases={this.props.databases}
          tables={this.props.tables}
        />
      )
@@ -96,7 +95,7 @@ class NavTreeContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const databases = state.navTree.databases
+  const databases = state.navTree.databases.slice().sort()
   const tables = state.navTree.tables
 
   return {

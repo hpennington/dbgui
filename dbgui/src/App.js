@@ -37,8 +37,6 @@ function App(props) {
         props.dispatch(setRows({rows: rows}))
       })
       .catch(err => window.alert(err))
-
-
   }
 
   return (
