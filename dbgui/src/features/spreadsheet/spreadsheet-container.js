@@ -1,18 +1,60 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { setColumns, setRows } from './spreadsheetSlice'
 import Spreadsheet from './spreadsheet'
 
 function SpreadsheetContainer(props) {
-  return (
-    <Spreadsheet columns={props.columns} rows={props.rows} />
-  )
+  const [offset, setOffset] = useState(0)
+
+  function onScrollUp() {
+    console.log('onScrollUp')
+    const localOffset = offset - 50
+    setOffset(localOffset)
+  }
+
+  function onScrollDown() {
+    console.log('onScrollDown')
+
+    const localOffset = offset + 50
+    const database = 'pms'
+    const table = 'key_sku'
+
+    fetch('http://localhost:3000/table?database='
+      + database
+      + '&table=' + table
+      + '&offset=' + offset,
+      {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({'api_key': process.env.REACT_APP_API_KEY}),
+    }).then(res => res.json())
+      .then(res => {
+        if (res.columns !== undefined && res.rows !== undefined) {
+          props.dispatch(setColumns({columns: res.columns}))
+          const newRows = props.rows.concat(res.rows.map(row => Object.values(row)))
+          console.log(newRows)
+          props.dispatch(
+            setRows({rows: newRows})
+          )
+        }
+
+        setOffset(localOffset)
+      })
+      .catch(err => window.alert(err))
+  }
+
+  return (<Spreadsheet
+    offset={offset}
+    scrollUp={onScrollUp}
+    scrollDown={onScrollDown}
+    columns={props.columns} rows={props.rows} />)
 }
 
 const mapStateToProps = state => {
   const columns = state.spreadsheet.columns
   const rows = state.spreadsheet.rows
-
-  console.log(columns)
 
   return {
     columns,

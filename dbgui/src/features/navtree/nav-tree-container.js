@@ -46,12 +46,14 @@ class NavTreeContainer extends React.Component {
       const index1 = parseInt(nodeId.split('-')[1])
       const database = this.props.databases[index0]
       const table = this.props.tables[database][index1]
+      const offset = 0
 
       this.props.dispatch(setSelectedDatabase({selected: database}))
 
       fetch('http://localhost:3000/table?database='
         + database
-        + '&table=' + table,
+        + '&table=' + table
+        + '&offset=' + offset,
         {
         method: 'POST',
         headers: {
