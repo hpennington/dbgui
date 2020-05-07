@@ -18,5 +18,5 @@ tr:nth-child(even) {
 .spreadsheet {
   margin: 10px;
   overflow: auto;
-  height: 90%;
+  height: calc(100vh - 164px);
 }
