@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setDatabases, setSelectedDatabase, setTable } from './navTreeSlice'
+import { setDatabases, setSelectedDatabase, setTable, setSelectedTable } from './navTreeSlice'
 import { setColumns, setRows } from '../spreadsheet/spreadsheetSlice'
 import NavTreeView from './nav-tree-view'
 
@@ -49,6 +49,7 @@ class NavTreeContainer extends React.Component {
       const offset = 0
 
       this.props.dispatch(setSelectedDatabase({selected: database}))
+      this.props.dispatch(setSelectedTable({selected: table}))
 
       fetch('http://localhost:3000/table?database='
         + database
@@ -76,6 +77,7 @@ class NavTreeContainer extends React.Component {
 
     } else {
       const database = this.props.databases[nodeId]
+      this.props.dispatch(setSelectedTable({selected: null}))
       this.props.dispatch(setSelectedDatabase({selected: database}))
       this.props.dispatch(setColumns({columns: ['Tables']}))
       this.props.dispatch(

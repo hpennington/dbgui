@@ -10,33 +10,35 @@ function SpreadsheetContainer(props) {
   function onScrollUp() {
     console.log('onScrollUp')
     const localOffset = offset - 100
-    const database = 'pms'
-    const table = 'key_sku'
+    if (localOffset >= 0) {
+      const database = props.database
+      const table = props.table
 
-    fetch('http://localhost:3000/table?database='
-      + database
-      + '&table=' + table
-      + '&offset=' + localOffset,
-      {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({'api_key': process.env.REACT_APP_API_KEY}),
-    }).then(res => res.json())
-      .then(res => {
-        if (res.columns !== undefined && res.rows !== undefined) {
-          props.dispatch(setColumns({columns: res.columns}))
-          const newRows = res.rows.map(row => Object.values(row))
-          console.log(newRows)
-          props.dispatch(
-            setRows({rows: newRows})
-          )
-        }
+      fetch('http://localhost:3000/table?database='
+        + database
+        + '&table=' + table
+        + '&offset=' + localOffset,
+        {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({'api_key': process.env.REACT_APP_API_KEY}),
+      }).then(res => res.json())
+        .then(res => {
+          if (res.columns !== undefined && res.rows !== undefined) {
+            props.dispatch(setColumns({columns: res.columns}))
+            const newRows = res.rows.map(row => Object.values(row))
+            console.log(newRows)
+            props.dispatch(
+              setRows({rows: newRows})
+            )
+          }
 
-        setOffset(localOffset)
-      })
-      .catch(err => window.alert(err))
+          setOffset(localOffset)
+        })
+        .catch(err => window.alert(err))
+    }
 
   }
 
@@ -44,8 +46,8 @@ function SpreadsheetContainer(props) {
     console.log('onScrollDown')
 
     const localOffset = offset + 100
-    const database = 'pms'
-    const table = 'key_sku'
+    const database = props.database
+    const table = props.table
 
     fetch('http://localhost:3000/table?database='
       + database
@@ -97,10 +99,14 @@ function SpreadsheetContainer(props) {
 const mapStateToProps = state => {
   const columns = state.spreadsheet.columns
   const rows = state.spreadsheet.rows
+  const database = state.navTree.selectedDatabase
+  const table = state.navTree.selectedTable
 
   return {
     columns,
     rows,
+    database,
+    table,
   }
 }
 
