@@ -11,6 +11,7 @@ th, td {
   text-align: left;
   padding: 10px;
   white-space: nowrap;
+  border: solid 1px gray;
 }
 
 tr:nth-child(even) {
