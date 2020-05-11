@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import HamburgerMenu from 'react-hamburger-menu'
 import NavTreeContainer from './features/navtree/nav-tree-container'
@@ -10,9 +10,26 @@ import './App.css';
 
 function App(props) {
   const [open, setOpen] = useState(true)
+  const [spreadsheetWidth, setSpreadsheetWidth] = useState(0)
+  const spreadsheet = useRef(null)
+  const [mounted, setMounted] = useState(false)
 
   const leftPaneStyle = {
     width: open === true ? '400px' : 0
+  }
+
+  useEffect(() => {
+    if (!mounted) {
+      setMounted(true)
+
+      window.onresize = resize
+    }
+
+    resize()
+  })
+
+  function resize() {
+    setSpreadsheetWidth(spreadsheet.current.getBoundingClientRect().width)
   }
 
   function handleSubmit(e) {
@@ -53,7 +70,7 @@ function App(props) {
         : ''
         }
       </div>
-      <div id="split-pane-right">
+      <div id="split-pane-right" ref={spreadsheet}>
         <div>
           <div id="hamburger-menu-container">
             <HamburgerMenu
@@ -61,7 +78,10 @@ function App(props) {
               height={15}
               strokeWidth={3}
               color="gray"
-              menuClicked={e => setOpen(!open)}
+              menuClicked={e => {
+                resize()
+                setOpen(!open)
+              }}
               isOpen={false}
             />
           </div>
@@ -71,7 +91,7 @@ function App(props) {
             </Form.Group>
           </Form>
         </div>
-        <SpreadsheetContainer />
+        <SpreadsheetContainer width={spreadsheetWidth} />
       </div>
     </div>
   );

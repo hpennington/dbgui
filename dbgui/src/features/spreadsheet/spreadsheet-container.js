@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Pagination } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { setColumns, setRows } from './spreadsheetSlice'
@@ -8,7 +8,6 @@ function SpreadsheetContainer(props) {
   const [offset, setOffset] = useState(0)
 
   function onScrollUp() {
-    console.log('onScrollUp')
     const localOffset = offset - 100
     if (localOffset >= 0) {
       const database = props.database
@@ -29,7 +28,6 @@ function SpreadsheetContainer(props) {
           if (res.columns !== undefined && res.rows !== undefined) {
             props.dispatch(setColumns({columns: res.columns}))
             const newRows = res.rows.map(row => Object.values(row))
-            console.log(newRows)
             props.dispatch(
               setRows({rows: newRows})
             )
@@ -43,8 +41,6 @@ function SpreadsheetContainer(props) {
   }
 
   function onScrollDown() {
-    console.log('onScrollDown')
-
     const localOffset = offset + 100
     const database = props.database
     const table = props.table
@@ -64,7 +60,6 @@ function SpreadsheetContainer(props) {
         if (res.columns !== undefined && res.rows !== undefined) {
           props.dispatch(setColumns({columns: res.columns}))
           const newRows = res.rows.map(row => Object.values(row))
-          console.log(newRows)
           props.dispatch(
             setRows({rows: newRows})
           )
@@ -81,6 +76,7 @@ function SpreadsheetContainer(props) {
         flexDirection: 'column',
       }}>
       <Spreadsheet
+        width={props.width}
         offset={offset}
         scrollUp={onScrollUp}
         scrollDown={onScrollDown}
