@@ -47,7 +47,8 @@ export default class Spreadsheet extends React.Component {
               left: `${window.innerWidth - this.props.width + 10}px`,
               overflow: "hidden",
               zIndex: -1,
-              width: `calc(100% - ${window.innerWidth - this.props.width + 20}px)`
+              width: `calc(100% - ${window.innerWidth - this.props.width + 20}px)`,
+              border: "solid 1px gray",
             }}
         >
           {
