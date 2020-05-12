@@ -15,7 +15,7 @@ exports.tableMeta = function (req, res) {
 
   knex(table)
     .count('*')
-    .then(result => res.send(result))
+    .then(result => res.send({length: result[0]['count(*)']}))
     .catch(err => console.log(err))
     .then(() => knex.destroy())
 }
