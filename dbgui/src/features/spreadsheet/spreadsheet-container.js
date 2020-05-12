@@ -7,48 +7,12 @@ import Spreadsheet from './spreadsheet'
 function SpreadsheetContainer(props) {
   const [offset, setOffset] = useState(0)
 
-  function onScrollUp() {
-    const localOffset = offset - 100
-    if (localOffset >= 0) {
-      const database = props.database
-      const table = props.table
-
+  function fetchData(offset, database, table) {
+    return new Promise((resolve, reject) => {
       fetch('http://localhost:3000/table?database='
-        + database
-        + '&table=' + table
-        + '&offset=' + localOffset,
-        {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({'api_key': process.env.REACT_APP_API_KEY}),
-      }).then(res => res.json())
-        .then(res => {
-          if (res.columns !== undefined && res.rows !== undefined) {
-            props.dispatch(setColumns({columns: res.columns}))
-            const newRows = res.rows.map(row => Object.values(row))
-            props.dispatch(
-              setRows({rows: newRows})
-            )
-          }
-
-          setOffset(localOffset)
-        })
-        .catch(err => window.alert(err))
-    }
-
-  }
-
-  function onScrollDown() {
-    const localOffset = offset + 100
-    const database = props.database
-    const table = props.table
-
-    fetch('http://localhost:3000/table?database='
       + database
       + '&table=' + table
-      + '&offset=' + localOffset,
+      + '&offset=' + offset,
       {
       method: 'POST',
       headers: {
@@ -60,14 +24,65 @@ function SpreadsheetContainer(props) {
         if (res.columns !== undefined && res.rows !== undefined) {
           props.dispatch(setColumns({columns: res.columns}))
           const newRows = res.rows.map(row => Object.values(row))
-          props.dispatch(
-            setRows({rows: newRows})
-          )
+          resolve(newRows)
         }
 
+      })
+        .catch(err => reject(err))
+    })
+  }
+
+  function onScrollUp() {
+    const localOffset = offset - 100
+    if (localOffset >= 0) {
+      const database = props.database
+      const table = props.table
+
+      fetchData(localOffset, database, table)
+        .then((res) => {
+          setOffset(localOffset)
+          props.dispatch(
+            setRows({rows: res})
+          )
+        })
+        .catch(err => window.alert(err))
+    }
+
+  }
+
+  function onScrollDown() {
+    const localOffset = offset + 100
+    const database = props.database
+    const table = props.table
+
+    fetchData(localOffset, database, table)
+      .then((res) => {
         setOffset(localOffset)
+        props.dispatch(
+          setRows({rows: res})
+        )
       })
       .catch(err => window.alert(err))
+
+  }
+
+  function onScrollStart() {
+    const localOffset = 0
+    const database = props.database
+    const table = props.table
+
+    fetchData(localOffset, database, table)
+      .then((res) => {
+        setOffset(localOffset)
+        props.dispatch(
+          setRows({rows: res})
+        )
+      })
+      .catch(err => window.alert(err))
+
+  }
+
+  function onScrollEnd() {
   }
 
   return (
@@ -85,8 +100,10 @@ function SpreadsheetContainer(props) {
             margin: 'auto'
           }}>
           <Pagination>
+            <Pagination.First onClick={onScrollStart} />
             <Pagination.Prev onClick={onScrollUp} />
             <Pagination.Next onClick={onScrollDown} />
+            <Pagination.Last onClick={onScrollEnd} />
           </Pagination>
         </div>
       </div>)
